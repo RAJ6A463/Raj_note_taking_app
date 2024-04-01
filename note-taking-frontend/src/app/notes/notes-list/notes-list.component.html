@@ -1,0 +1,37 @@
+<div class="centered-content mt-5 ">
+    <h1 class="title">Capture, Organize, Inspire: Your Thoughts Simplified</h1>
+</div>
+
+<div class="container centered-content d-flex justify-content-end mt-3">
+    <a routerLink="/create" class="text-white text-decoration-none"><button class="btn btn-primary ">Add Note</button></a>
+</div>
+
+<div class="container mt-5">
+    <div class="bg-color-accordian  m-0  bd-example">
+        <p style="text-align: center;" *ngIf="!during.fechingNotes || notes.length == 0">
+            {{ !during.fechingNotes ? "Loading ..." : "Notes not added yet!" }}
+            <i [hidden]="during.fechingNotes" class="fas fa-spinner fa-pulse"></i>
+        </p>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item my-3" *ngFor="let note of notes">
+                <h2 class="accordion-header" id="heading{{ note.id }}">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapse' + note.id">
+                        <span class="custom-title text-capitalize">{{ note.title }}</span>
+                    </button>
+                </h2>
+                <div [id]="'collapse' + note.id" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        {{ note.content }}
+                    </div>
+                    <div class="bg-color">
+                        <div class="p-2  bd-example d-flex justify-content-end">
+                            <button class="btn btn-primary" [routerLink]="['/update', note.id]">Edit</button>
+                            <span style="margin-right: 10px;"></span>
+                            <button class="btn btn-danger" (click)="onDeleteNote(note.id)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
